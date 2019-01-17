@@ -33,6 +33,32 @@ sudo cp ~/nginx.conf /etc/nginx/sites-available/default
 # Start nginx service
 sudo systemctl start nginx.service
 
+#!/usr/bin/env bash
+
+# make sure apt database is up-to date
+sudo apt update
+
+# install tools
+which wget curl telnet unzip &>/dev/null || {
+  sudo apt install -y wget curl telnet unzip
+}
+
+# install java-jdk required for jenkins to run
+which java &>/dev/null || {
+  sudo apt install -y default-jdk
+}
+
+# install jenkins  
+which jenkins &>/dev/null || {
+  wget -q -O - https://pkg.jenkins.io/debian/jenkins.io.key | sudo apt-key add -
+  sudo sh -c 'echo deb http://pkg.jenkins.io/debian-stable binary/ > /etc/apt/sources.list.d/jenkins.list'
+  sudo apt update
+  sudo apt install -y jenkins
+}
+
+sudo systemctl enable jenkins.service
+sudo systemctl start jenkins.service
+
 # Install certbot tool
 echo "Installing Certbot...."
 sudo apt-get install software-properties-common -y
@@ -51,3 +77,6 @@ sudo certbot --nginx --non-interactive --agree-tos -m ${EMAIL} -d ${DOMAIN_NAME}
 crontab <<EOF
 0 12 * * * /usr/bin/certbot renew --quiet
 EOF
+
+# print Jenkins unlock password
+echo "Unlock Jenkins password is:" && sudo cat /var/lib/jenkins/secrets/initialAdminPassword
