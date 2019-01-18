@@ -23,19 +23,19 @@ sudo cp ~/nginx.conf /etc/nginx/sites-available/default
 # Start nginx service
 sudo systemctl start nginx.service
 
-# install tools
+# Install tools
 echo "Installing tools...."
 which wget curl telnet unzip &>/dev/null || {
   sudo apt-get install -y wget curl telnet unzip
 }
 
-# install java-jdk required for jenkins to run
+# Install java-jdk required for jenkins to run
 echo "Installing Java JDK...."
 which java &>/dev/null || {
   sudo apt-get install -y default-jdk
 }
 
-# install jenkins  
+# Install jenkins  
 echo "Installing Jenkins...."
 which jenkins &>/dev/null || {
   wget -q -O - https://pkg.jenkins.io/debian/jenkins.io.key | sudo apt-key add -
@@ -47,7 +47,7 @@ which jenkins &>/dev/null || {
 sudo systemctl enable jenkins.service
 sudo systemctl start jenkins.service
 
-# Install certbot tool
+# Install EFF's Certbot tool
 echo "Installing Certbot...."
 sudo apt-get install software-properties-common -y
 sudo add-apt-repository universe
@@ -55,13 +55,13 @@ sudo add-apt-repository ppa:certbot/certbot -y
 sudo apt-get update
 sudo apt-get install python-certbot-nginx -y
 
-# Generate certificate
+# Deploying Let's Encrypt certificate
 echo "Generating SSL Certificate for nginx with Certbot...."
 EMAIL=atanas.v4@gmail.com
 DOMAIN_NAME=jenkins.ntry.site
 sudo certbot --nginx --non-interactive --agree-tos -m ${EMAIL} -d ${DOMAIN_NAME} --redirect
 
-# Create cron job
+# Create cron job to check and renew certificate on expiration
 crontab <<EOF
 0 12 * * * /usr/bin/certbot renew --quiet
 EOF
