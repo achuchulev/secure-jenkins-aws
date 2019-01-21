@@ -1,4 +1,4 @@
-# A sample repo with example of running Jenkins on AWS behind nginx https reverse-proxy
+# Run Jenkins on AWS behind nginx https reverse-proxy
 
 ### Prerequisites
 
@@ -32,7 +32,7 @@ public_key = "your_public_ssh_key"
 ```
 
 ```
-Note: Security group in AWS should allow ssh on port 22 and https on port 443, also 8443 for jenkins webhooks
+Note: Security group in AWS should allow ssh port 22, https port 443 and port 8443 for jenkins webhooks
 ```
 
 - Edit script scripts/provision.sh and set below variables under section Generate certificate
