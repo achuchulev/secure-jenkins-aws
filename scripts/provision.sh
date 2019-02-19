@@ -37,7 +37,6 @@ sudo systemctl start nginx.service
 echo "Installing Java JDK...."
 which java &>/dev/null || {
   sudo apt install -y default-jdk
-  which java
   type -p java
 }
 
