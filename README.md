@@ -15,8 +15,8 @@
 - Get the repo
 
 ```
-https://github.com/achuchulev/secure-nomad-https.git
-cd secure-nomad-https
+https://github.com/achuchulev/secure-jenkins-aws.git
+cd secure-jenkins-aws
 ```
 
 - Create `terraform.tfvars` file
@@ -29,19 +29,15 @@ instance_type = "t2.micro"
 subnet_id = "subnet_id"
 vpc_security_group_ids = ["security_group/s_id/s"]
 public_key = "your_public_ssh_key"
+cloudflare_email = "your_cloudflair_user"
+cloudflare_token = "your_cloudflair_token"
+cloudflare_zone = "yourdomain.com"
+subdomain_name = "host01"
 ```
 
 ```
 Note: Security group in AWS should allow ssh port 22, https port 443 and port 8443 for jenkins webhooks
 ```
-
-- Edit script scripts/provision.sh and set below variables under section Generate certificate
-
-```
-EMAIL=you@example.com
-DOMAIN_NAME=your.dns.name
-```
-
 - Initialize terraform
 
 ```
