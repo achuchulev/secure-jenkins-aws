@@ -3,10 +3,16 @@
 # Make sure apt repository db is up to date
 sudo apt-get update
 
+# Install tools
+echo "Installing tools...."
+which wget curl telnet unzip &>/dev/null || {
+  sudo apt-get install -y wget curl telnet unzip
+}
+
 # Check if nginx is installed
 # Install nginx if not installed
+echo "Installing nginx...."
 which nginx &>/dev/null || {
-  echo "Installing nginx...."
   sudo apt-get install -y nginx
 }
 
@@ -22,12 +28,6 @@ sudo systemctl stop nginx.service
 sudo cp ~/nginx.conf /etc/nginx/sites-available/default
 # Start nginx service
 sudo systemctl start nginx.service
-
-# Install tools
-echo "Installing tools...."
-which wget curl telnet unzip &>/dev/null || {
-  sudo apt-get install -y wget curl telnet unzip
-}
 
 # Install java-jdk required for jenkins to run
 echo "Installing Java JDK...."
@@ -56,15 +56,12 @@ sudo apt-get update
 sudo apt-get install python-certbot-nginx -y
 
 # Deploying Let's Encrypt certificate
-echo "Generating SSL Certificate for nginx with Certbot...."
-EMAIL=atanas.v4@gmail.com
-DOMAIN_NAME=jenkins.ntry.site
-sudo certbot --nginx --non-interactive --agree-tos -m ${EMAIL} -d ${DOMAIN_NAME} --redirect
+#echo "Generating SSL Certificate for nginx with Certbot...."
+#EMAIL=atanas.v4@gmail.com
+#DOMAIN_NAME=jenkins.ntry.site
+#sudo certbot --nginx --non-interactive --agree-tos -m ${EMAIL} -d ${DOMAIN_NAME} --redirect
 
 # Create cron job to check and renew certificate on expiration
 crontab <<EOF
 0 12 * * * /usr/bin/certbot renew --quiet
 EOF
-
-# print Jenkins unlock password
-echo "Unlock Jenkins password is:" && sudo cat /var/lib/jenkins/secrets/initialAdminPassword
