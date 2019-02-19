@@ -67,6 +67,7 @@ resource "cloudflare_record" "my-hostA-record" {
 
     connection {
       type        = "ssh"
+      host        = "${aws_instance.new_ec2.public_ip}"
       user        = "ubuntu"
       private_key = "${file("~/.ssh/id_rsa")}"
     }
