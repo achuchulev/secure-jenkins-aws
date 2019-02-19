@@ -49,7 +49,7 @@ which jenkins &>/dev/null || {
   sudo apt install -y jenkins
 }
 
-sleep 10
+sleep 5
 
 sudo systemctl enable jenkins.service
 sudo systemctl start jenkins.service
