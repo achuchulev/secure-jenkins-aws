@@ -42,14 +42,8 @@ resource "aws_instance" "new_ec2" {
   }
 }
 
-# Configure the Cloudflare provider
-provider "cloudflare" {
-  email = "${var.cloudflare_email}"
-  token = "${var.cloudflare_token}"
-}
-
 # Create a record
-resource "cloudflare_record" "my-host-dns" {
+resource "cloudflare_record" "my-hostA-record" {
   domain = "${var.cloudflare_zone}"
   name   = "${var.subdomain_name}"
   value  = "${aws_instance.new_ec2.public_ip}"
