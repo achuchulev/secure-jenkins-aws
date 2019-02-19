@@ -18,14 +18,20 @@ which nginx &>/dev/null || {
 
 # Configure nginx
 echo "Configuring nginx...."
+
 # Stop nginx service
 sudo systemctl stop nginx.service
+sleep 5
+
 # Remove default conf of nginx
 [ -f /etc/nginx/sites-available/default ] && {
  sudo rm -fr /etc/nginx/sites-available/default
 }
 # Copy our nginx conf
 sudo cp ~/nginx.conf /etc/nginx/sites-available/default
+
+sleep 5
+
 # Start nginx service
 sudo systemctl start nginx.service
 
@@ -33,6 +39,8 @@ sudo systemctl start nginx.service
 echo "Installing Java JDK...."
 which java &>/dev/null || {
   sudo apt-get install -y default-jdk
+  which java
+  type -p java
 }
 
 # Install jenkins  
@@ -42,8 +50,9 @@ which jenkins &>/dev/null || {
   sudo sh -c 'echo deb http://pkg.jenkins.io/debian-stable binary/ > /etc/apt/sources.list.d/jenkins.list'
   sudo apt-get update
   sudo apt-get install -y jenkins
-  sleep 10
 }
+
+sleep 10
 
 sudo systemctl enable jenkins.service
 sudo systemctl start jenkins.service
