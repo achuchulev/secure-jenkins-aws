@@ -30,7 +30,6 @@ resource "aws_instance" "new_ec2" {
     }
   }
 
-
   provisioner "remote-exec" {
     script = "${path.root}/scripts/provision.sh"
 
