@@ -55,12 +55,6 @@ sudo add-apt-repository ppa:certbot/certbot -y
 sudo apt-get update
 sudo apt-get install python-certbot-nginx -y
 
-# Deploying Let's Encrypt certificate
-#echo "Generating SSL Certificate for nginx with Certbot...."
-#EMAIL=atanas.v4@gmail.com
-#DOMAIN_NAME=jenkins.ntry.site
-#sudo certbot --nginx --non-interactive --agree-tos -m ${EMAIL} -d ${DOMAIN_NAME} --redirect
-
 # Create cron job to check and renew certificate on expiration
 crontab <<EOF
 0 12 * * * /usr/bin/certbot renew --quiet
