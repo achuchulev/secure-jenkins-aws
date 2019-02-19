@@ -13,3 +13,8 @@ variable "subnet_id" {}
 variable "vpc_security_group_ids" {
   type = "list"
 }
+
+variable "cloudflare_email" {}
+variable "cloudflare_token" {}
+variable "cloudflare_zone" {}
+variable "subdomain_name" {}
