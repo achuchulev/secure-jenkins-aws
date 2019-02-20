@@ -36,15 +36,8 @@ sudo systemctl start nginx.service
 # Install java-jdk required for jenkins to run
 echo "Installing Java JDK...."
 which java &>/dev/null || {
-  #echo "deb http://ppa.launchpad.net/linuxuprising/java/ubuntu bionic main" | sudo tee /etc/apt/sources.list.d/linuxuprising-java.list
-  #sudo apt-key adv --keyserver hkp://keyserver.ubuntu.com:80 --recv-keys 73C3DB2A
-  #sudo apt update
-  #echo oracle-java11-installer shared/accepted-oracle-license-v1-2 select true | sudo /usr/bin/debconf-set-selections
-  #sudo apt install oracle-java11-installer -y
-  #sudo apt install oracle-java11-set-default
   sudo apt install -y default-jdk
   echo "export JAVA_HOME=/usr/lib/jvm/java-8-openjdk-amd64/jre/" | sudo tee /etc/environment
-  sudo source /etc/environment
   type -p java
   echo $JAVA_HOME
 }
