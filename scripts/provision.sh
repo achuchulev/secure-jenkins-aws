@@ -36,8 +36,12 @@ sudo systemctl start nginx.service
 # Install java-jdk required for jenkins to run
 echo "Installing Java JDK...."
 which java &>/dev/null || {
-  sudo apt install -y default-jdk
-  type -p java
+  sudo add-apt-repository ppa:webupd8team/java
+  sudo apt update
+  sudo apt install oracle-java8-installer
+  sudo apt install oracle-java8-set-default
+  #sudo apt install -y default-jdk
+  #type -p java
 }
 
 # Install jenkins  
