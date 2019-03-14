@@ -1,5 +1,8 @@
 #!/bin/bash
 
+export DEBIAN_FRONTEND=noninteractive
+export APTARGS="-qq -o=Dpkg::Use-Pty=0"
+
 # Make sure apt repository db is up to date
 sudo apt update
 
