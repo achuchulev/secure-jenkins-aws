@@ -8,13 +8,13 @@ sudo apt update
 
 # Install tools
 echo "Installing tools...."
-sudo apt install -y wget curl telnet unzip
+sudo apt install -y wget curl telnet unzip ${APTARGS}
 
 # Check if nginx is installed
 # Install nginx if not installed
 echo "Installing nginx...."
 which nginx &>/dev/null || {
-  sudo apt install -y nginx
+  sudo apt install -y nginx ${APTARGS}
 }
 
 # Configure nginx
@@ -39,7 +39,7 @@ sudo systemctl start nginx.service
 # Install java-jdk required for jenkins to run
 echo "Installing Java JDK...."
 which java &>/dev/null || {
-  sudo apt install -y default-jdk
+  sudo apt install -y default-jdk ${APTARGS}
   echo "export JAVA_HOME=/usr/lib/jvm/java-8-openjdk-amd64/jre/" | sudo tee /etc/environment
   type -p java
   echo $JAVA_HOME
@@ -51,7 +51,7 @@ which jenkins &>/dev/null || {
   wget -q -O - https://pkg.jenkins.io/debian/jenkins.io.key | sudo apt-key add -
   sudo sh -c 'echo deb http://pkg.jenkins.io/debian-stable binary/ > /etc/apt/sources.list.d/jenkins.list'
   sudo apt update
-  sudo apt install -y jenkins
+  sudo apt install -y jenkins ${APTARGS}
 }
 
 sleep 5
